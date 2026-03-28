@@ -63,11 +63,11 @@ const config = useRuntimeConfig()
 const baseURL = config.app.baseURL
 
 const teamData = [
-  { name: 'Antonin ARNAUD', role: 'RF Lead', photo: 'images/team/17977a15-840b-49eb-8900-e8209f9901f9.jpg', linkedin: '' },
-  { name: 'Tierno-Alpha TALL', role: 'Software Lead', photo: 'images/team/ltr11ll3xrt8g7dr.png', linkedin: '' },
-  { name: 'Kichi-Tawa BOURGUINAT', role: 'Business Lead', photo: 'images/team/54n7z3vwzmqd549r.jpg', linkedin: '' },
+  { name: 'Antonin ARNAUD', role: 'RF Lead', photo: 'images/team/17977a15-840b-49eb-8900-e8209f9901f9.jpg', linkedin: 'https://www.linkedin.com/in/antonin-arnaud/' },
+  { name: 'Tierno-Alpha TALL', role: 'Software Lead', photo: 'images/team/ltr11ll3xrt8g7dr.png', linkedin: 'https://www.linkedin.com/in/tierno-tall/' },
+  { name: 'Kichi-Tawa BOURGUINAT', role: 'Business Lead', photo: 'images/team/54n7z3vwzmqd549r.jpg', linkedin: 'www.linkedin.com/in/kitchi-tawa-bourguinat' },
   { name: 'Henrique IHA TAGUTI', role: 'E/W Lead', photo: 'images/team/a8a695e0-1dfb-4a14-a5a7-a9214c8596cc.jpg', linkedin: '' },
-  { name: 'Kylian GACHET', role: 'Cybersecurity Lead', photo: 'images/team/1333fe97-f070-4fef-8daf-a4804a653c94.jpg', linkedin: '' },
+  { name: 'Kylian GACHET', role: 'Cybersecurity Lead', photo: 'images/team/1333fe97-f070-4fef-8daf-a4804a653c94.jpg', linkedin: 'https://www.linkedin.com/in/kyliangachet/' },
 ]
 
 const team = computed(() =>
