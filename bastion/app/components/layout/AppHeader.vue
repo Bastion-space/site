@@ -6,7 +6,7 @@
         class="flex items-center gap-2.5 transition hover:opacity-80"
         @click.prevent="scrollTo('home')"
       >
-        <img :src="baseURL + 'images/logo.png'" alt="Bastion logo" class="size-8 object-contain">
+        <img :src="baseURL + '/public/images/logo.png'" alt="Bastion logo" class="size-8 object-contain"/>
         <div class="flex flex-col leading-tight">
           <span class="text-lg font-bold tracking-tight text-white">Bastion<span class="text-blue-500">.</span></span>
           <span class="hidden text-[10px] font-medium uppercase tracking-widest text-slate-500 sm:block">Space RF Defense</span>
