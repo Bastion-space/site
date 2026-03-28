@@ -6,12 +6,7 @@
         class="flex items-center gap-2.5 transition hover:opacity-80"
         @click.prevent="scrollTo('home')"
       >
-        <svg class="size-7 text-blue-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 2L3 7v6c0 5.25 3.75 10.13 9 11.25 5.25-1.12 9-6 9-11.25V7l-9-5z" />
-          <circle cx="12" cy="12.5" r="1.2" fill="currentColor" stroke="none" />
-          <circle cx="12" cy="12.5" r="3" opacity="0.6" />
-          <circle cx="12" cy="12.5" r="5" opacity="0.3" />
-        </svg>
+        <img :src="baseURL + 'images/logo.png'" alt="Bastion logo" class="size-8 object-contain" />
         <div class="flex flex-col leading-tight">
           <span class="text-lg font-bold tracking-tight text-white">Bastion<span class="text-blue-500">.</span></span>
           <span class="hidden text-[10px] font-medium uppercase tracking-widest text-slate-500 sm:block">Space RF Defense</span>
@@ -20,7 +15,7 @@
 
       <ul class="hidden items-center gap-1 md:flex">
         <li v-for="item in navLinks" :key="item.id">
-          <a
+          
             :href="`#${item.id}`"
             class="relative rounded-md px-3 py-2 text-sm transition"
             :class="activeSection === item.id
@@ -36,7 +31,7 @@
           </a>
         </li>
         <li class="ml-4">
-          <a
+          
             href="#contact"
             class="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-500"
             @click.prevent="scrollTo('contact')"
@@ -65,7 +60,7 @@
     >
       <ul class="flex flex-col gap-4">
         <li v-for="item in navLinks" :key="item.id">
-          <a
+          
             :href="`#${item.id}`"
             class="block transition"
             :class="activeSection === item.id
@@ -77,7 +72,7 @@
           </a>
         </li>
         <li>
-          <a
+          
             href="#contact"
             class="inline-block rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-500"
             @click.prevent="scrollTo('contact'); open = false"
@@ -91,6 +86,9 @@
 </template>
 
 <script setup lang="ts">
+const config = useRuntimeConfig()
+const baseURL = config.app.baseURL
+
 const open = ref(false)
 const activeSection = ref('home')
 
