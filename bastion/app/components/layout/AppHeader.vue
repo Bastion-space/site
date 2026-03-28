@@ -15,7 +15,7 @@
 
       <ul class="hidden items-center gap-1 md:flex">
         <li v-for="item in navLinks" :key="item.id">
-          
+          <a
             :href="`#${item.id}`"
             class="relative rounded-md px-3 py-2 text-sm transition"
             :class="activeSection === item.id
@@ -31,7 +31,7 @@
           </a>
         </li>
         <li class="ml-4">
-          
+          <a
             href="#contact"
             class="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-500"
             @click.prevent="scrollTo('contact')"
@@ -60,7 +60,7 @@
     >
       <ul class="flex flex-col gap-4">
         <li v-for="item in navLinks" :key="item.id">
-          
+          <a
             :href="`#${item.id}`"
             class="block transition"
             :class="activeSection === item.id
@@ -72,7 +72,7 @@
           </a>
         </li>
         <li>
-          
+          <a
             href="#contact"
             class="inline-block rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-500"
             @click.prevent="scrollTo('contact'); open = false"
@@ -86,9 +86,6 @@
 </template>
 
 <script setup lang="ts">
-const config = useRuntimeConfig()
-const baseURL = config.app.baseURL
-
 const open = ref(false)
 const activeSection = ref('home')
 
