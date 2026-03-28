@@ -63,15 +63,15 @@
 </script>
 
 <style scoped>
-/* Dégradé vertical Bleu - Blanc - Rouge (de haut en bas) */
+/* Dégradé horizontal Bleu - Blanc - Rouge (gauche vers droite) */
 h1 {
   text-shadow: 0 0 30px rgba(239, 68, 68, 0.3);
-  background: linear-gradient(180deg, 
-    #0055A4 0%,      /* Bleu français en haut */
-    #0055A4 30%,
-    #FFFFFF 50%,     /* Blanc au milieu */
-    #EF4135 70%,     /* Rouge en bas */
-    #EF4135 100%
+  background: linear-gradient(90deg, 
+    #000091 0%,
+    #000091 20%,
+    #fff 60%,
+    #e1000f 80%,
+    #e1000f 100%
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
