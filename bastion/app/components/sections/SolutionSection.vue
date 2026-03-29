@@ -81,9 +81,9 @@ onMounted(() => {
     (entries) => {
       if (entries[0].isIntersecting && !triggered) {
         triggered = true
-        animateValue('modes', 3, 800)
-        animateValue('awareness', 360, 1500)
-        animateValue('latency', 2, 600)
+        animateValue('modes', 3, 2200)
+        animateValue('awareness', 360, 2000)
+        animateValue('latency', 2, 2000)
         observer.disconnect()
       }
     },
