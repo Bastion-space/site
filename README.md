@@ -1,10 +1,10 @@
 # Bastion
 
-Official website of the Bastion project.
+Official website of the Bastion Space project.
 
 ## About
 
-Bastion is a university project focused on the development of an anti-jamming / jamming satellite module with dual-use capabilities.
+Bastion Space is a project focused on the development of an anti-jamming / anti-spoofing satellite module with dual-use capabilities.
 
 ## Website
 
@@ -12,19 +12,16 @@ This repository contains the source code of the Bastion project showcase website
 
 Automatically deployed on GitHub Pages on every push to the `main` branch.
 
-## Website Contributors
+## [Website](https://bastion-space.github.io/site/) Contributors
 
 | Name |
 |------|
-| BOURGUINAT Kitchi-Tawa |
-| GACHET Kylian |
+| [BOURGUINAT Kitchi-Tawa](www.linkedin.com/in/kitchi-tawa-bourguinat) |
 
 ## Project Members
 
 | Name | Role |
 |------|------|
-| ARNAUD Antonin | CTO & RF Lead |
-| BOURGUINAT Kitchi-Tawa | CEO & Business Lead |
-| TALL Tierno-Alpha | Software Lead |
-| IHA TAGUTI Henrique | Integrated Circuits Lead |
-| GACHET Kylian | CyberSecurity Lead |
+| BOURGUINAT Kitchi-Tawa | CEO of [Bastion Space](https://www.linkedin.com/company/bastion-space/)|
+
+Last Website Update: July 2026 
