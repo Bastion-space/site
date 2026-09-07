@@ -21,7 +21,7 @@
           </ul>
         </div>
         <div class="mt-8 border-t border-slate-800/30 pt-8 text-center text-sm text-slate-500">
-          © {{ new Date().getFullYear() }} Bastion. All rights reserved.
+          © July 2026 Bastion. All rights reserved.
         </div>
       </div>
     </footer>
@@ -31,7 +31,7 @@
   const navItems = [
     { id: 'home', label: 'Home' },
     { id: 'solution', label: 'Solution' },
-    { id: 'business', label: 'Business' },
+    { id: 'demonstration', label: 'Demonstration' },
     { id: 'team', label: 'Team' },
     { id: 'contact', label: 'Contact' }
   ]

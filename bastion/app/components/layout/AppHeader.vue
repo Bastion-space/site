@@ -8,7 +8,7 @@
       >
         <img src="/images/logo.png" alt="Bastion logo" class="size-8 object-contain" />
         <div class="flex flex-col leading-tight">
-          <span class="text-lg font-bold tracking-tight text-white">Bastion<span class="text-blue-500">.</span></span>
+          <span class="text-lg font-bold tracking-tight text-white">Bastion Space<span class="text-blue-500">.</span></span>
           <span class="hidden text-[10px] font-medium uppercase tracking-widest text-slate-500 sm:block">Space RF Defense</span>
         </div>
       </NuxtLink>
@@ -89,12 +89,12 @@
 const open = ref(false)
 const activeSection = ref('home')
 
-const sectionIds = ['home', 'solution', 'business', 'team', 'contact']
+const sectionIds = ['home', 'solution', 'demonstration', 'team', 'contact']
 
 const navLinks = [
   { id: 'home', label: 'Home' },
   { id: 'solution', label: 'Solution' },
-  { id: 'business', label: 'Business' },
+  { id: 'demonstration', label: 'Demonstration' },
   { id: 'team', label: 'Team' },
 ]
 
