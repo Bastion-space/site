@@ -20,19 +20,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-
-      - name: Install pnpm
-        run: npm install -g pnpm
+          cache: npm
+          cache-dependency-path: ./bastion/package-lock.json
 
       - name: Install dependencies
         working-directory: ./bastion
-        run: pnpm install --ignore-scripts --no-verify-store
-        env:
-          PNPM_IGNORE_BUILDS: true
+        run: npm ci --legacy-peer-deps
 
       - name: Generate static site
         working-directory: ./bastion
-        run: pnpm nuxt generate
+        run: npm run generate
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
