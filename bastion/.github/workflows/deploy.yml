@@ -12,20 +12,24 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-          cache-dependency-path: ./bastion/package-lock.json
 
-      - name: Install dependencies
+      - name: Install dependencies (clean install, no cache)
         working-directory: ./bastion
         run: npm install --legacy-peer-deps --no-cache
+
+      - name: Show installed tailwind version (debug)
+        working-directory: ./bastion
+        run: npm list tailwindcss
 
       - name: Generate static site
         working-directory: ./bastion
