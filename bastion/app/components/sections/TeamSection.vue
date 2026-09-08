@@ -8,25 +8,28 @@
         Team
       </h2>
       <p class="mt-4 max-w-2xl text-slate-400">
-        Get to know the team behind Bastion.
+        The team behind Bastion Space's R&D and strategy.
       </p>
-      <ul class="mt-12 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-5">
+      <ul class="mt-12 flex flex-wrap justify-center gap-10">
         <li
           v-for="(member, i) in team"
           :key="i"
           class="flex flex-col items-center text-center"
         >
-          <p class="text-lg font-semibold text-white truncate">
+          <p class="mt-3 text-3xl font-semibold text-white truncate">
             {{ member.name }}
           </p>
-          <p class="mt-0.5 text-sm text-slate-500">
-            {{ member.role }}
+          <p class="mt-0.5 text-lg text-slate-500">
+            Telecommunication Engineering Student at ENSEIRB-MATMECA Bordeaux France · {{ member.role }}
+          </p>
+          <p class="mt-3 text-base text-slate-400 ">
+            From ML jamming detection to business strategy.
           </p>
           <a
             :href="member.linkedin || '#'"
             :target="member.linkedin ? '_blank' : ''"
             :rel="member.linkedin ? 'noopener noreferrer' : ''"
-            class="group relative mt-3 aspect-square w-full max-w-[200px] overflow-hidden rounded-lg border border-slate-700 bg-slate-800 block"
+            class="group relative mt-3 aspect-square w-full max-w-[280px] overflow-hidden rounded-xl border border-slate-700 bg-slate-800 block"
           >
             <img
               v-if="member.photo"
@@ -63,11 +66,7 @@ const config = useRuntimeConfig()
 const baseURL = config.app.baseURL
 
 const teamData = [
-  { name: 'Antonin ARNAUD', role: 'RF Lead', photo: 'images/team/17977a15-840b-49eb-8900-e8209f9901f9.jpg', linkedin: 'https://www.linkedin.com/in/antonin-arnaud/' },
-  { name: 'Tierno-Alpha TALL', role: 'Software Lead', photo: 'images/team/ltr11ll3xrt8g7dr.png', linkedin: 'https://www.linkedin.com/in/tierno-tall/' },
-  { name: 'Kichi-Tawa BOURGUINAT', role: 'Business Lead', photo: 'images/team/54n7z3vwzmqd549r.jpg', linkedin: 'https://www.linkedin.com/in/kitchi-tawa-bourguinat' },
-  { name: 'Henrique IHA TAGUTI', role: 'E/W Lead', photo: 'images/team/a8a695e0-1dfb-4a14-a5a7-a9214c8596cc.jpg', linkedin: '' },
-  { name: 'Kylian GACHET', role: 'Cybersecurity Lead', photo: 'images/team/1333fe97-f070-4fef-8daf-a4804a653c94.jpg', linkedin: 'https://www.linkedin.com/in/kyliangachet/' },
+  { name: 'Kichi-Tawa BOURGUINAT', role: 'Project Lead', photo: 'images/team/ktb_portrait.jpg', linkedin: 'https://www.linkedin.com/in/kitchi-tawa-bourguinat' },
 ]
 
 const team = computed(() =>

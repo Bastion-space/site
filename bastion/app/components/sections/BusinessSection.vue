@@ -1,639 +1,564 @@
 <template>
   <section
     id="business"
-    class="scroll-mt-20 px-4 py-20 sm:px-6 sm:py-24 lg:px-8"
+    ref="sectionRef"
+    class="scroll-mt-20 relative px-4 py-20 sm:px-6 sm:py-24 lg:px-8 overflow-hidden"
+    @mousemove="handleMouseMove"
+    @mouseleave="handleMouseLeave"
   >
+    <!-- Fond interactif (dégradé radial qui suit la souris) -->
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-slate-900/80 to-transparent"
+      :style="{
+        backgroundImage: `radial-gradient(ellipse at ${mouseX}% ${mouseY}%, rgba(59,130,246,0.12) 0%, transparent 70%)`
+      }"
+    ></div>
 
-  <div class="business-timeline">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
-            Roadmap
-          </h2>
-          <div class="mx-auto mt-4 h-1 w-24 bg-gradient-to-r from-[#000091] via-white to-[#e1000f]"></div>
-          <p class="mt-6 text-lg text-slate-400 max-w-2xl mx-auto">
-            From prototype to European leadership — our 11-year journey
-          </p>
-        </div>
+    <!-- Étoiles de fond -->
+    <div class="absolute inset-0 stars"></div>
 
-    <div class="mt-4 mb-8 text-sm text-slate-400 max-w-2xl mx-auto bg-slate-800/30 p-3 rounded-lg">
-      <span class="font-semibold text-white">The numbers:</span> 
-      Annual revenue in millions of €. <span class="text-blue-400">Hardware</span> = one-time equipment sales. 
-      <span class="text-blue-400">Software</span> = recurring subscriptions from <span class="text-white">all satellites deployed to date</span> (past years + current year). 
-      Software share grows from 7% to 39% as our installed base expands.
-    </div>
+    <!-- Contenu principal -->
+    <div class="relative mx-auto max-w-6xl z-10">
+      <!-- En‑tête -->
+      <div class="text-center mb-16">
+        <h2 class="text-5xl font-bold tracking-tight text-white sm:text-6xl md:text-7xl">
+          Demonstration
+        </h2>
+        <div class="mx-auto mt-4 h-1 w-24 bg-gradient-to-r from-blue-400 via-white to-blue-400"></div>
+        <p class="mt-6 text-xl text-slate-400 max-w-2xl mx-auto">
+          See how our anti‑jamming protection detects and neutralises interference.
+        </p>
+      </div>
 
+      <!-- Zone de démonstration – fond totalement transparent -->
+      <div class="relative w-full rounded-2xl border border-slate-800/10 p-4">
+        <div class="relative aspect-video w-full overflow-hidden rounded-xl">
 
-    <div class="timeline-container" ref="timelineContainer">
-      <!-- Vertical center line -->
-      <div class="timeline-line"></div>
-      
-      <div class="timeline-steps">
-        <div 
-          v-for="(step, index) in timelineSteps" 
-          :key="index"
-          class="timeline-step"
-          :class="{ 'active': activeStep === index }"
-          :ref="el => { if(el) stepRefs[index] = el }"
-        >
-          <div class="step-marker">
-            <div class="step-dot" :class="step.phaseType"></div>
-            <span class="step-year">Year {{ step.year }}</span>
-          </div>
+        <!-- TERRE -->
+        <svg class="absolute inset-0 h-full w-full pointer-events-none" viewBox="0 0 800 450">
+        <defs>
+          <radialGradient id="oceanGrad" cx="55%" cy="65%" r="65%">
+            <stop offset="0%" stop-color="#1a4a7a" />
+            <stop offset="35%" stop-color="#1e5a8a" />
+            <stop offset="70%" stop-color="#163a5e" />
+            <stop offset="100%" stop-color="#0d1f33" />
+          </radialGradient>
+          <linearGradient id="landGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#4a9a5a" />
+            <stop offset="100%" stop-color="#2d7a4f" />
+          </linearGradient>
+          <filter id="continentShadow">
+            <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="rgba(0,0,0,0.3)" />
+          </filter>
+        </defs>
+
+        <circle cx="180" cy="420" r="160" fill="url(#oceanGrad)" opacity="0.7" />
+        <circle cx="180" cy="420" r="162" fill="none" stroke="rgba(80,180,255,0.15)" stroke-width="6" />
+        <circle cx="180" cy="420" r="170" fill="none" stroke="rgba(80,180,255,0.08)" stroke-width="10" />
+        <circle cx="180" cy="420" r="180" fill="none" stroke="rgba(80,180,255,0.04)" stroke-width="15" />
+
+        <g fill="url(#landGrad)" opacity="0.7" stroke="#5aaa6a" stroke-width="0.8">
+          <path
+            d="M 30 340 
+              Q 40 320 60 305 
+              Q 80 295 100 292 
+              Q 120 290 140 295 
+              Q 160 305 165 320 
+              Q 170 340 160 360 
+              Q 150 380 130 390 
+              Q 110 400 90 395 
+              Q 70 388 55 375 
+              Q 40 360 30 340 Z"
+          />
+        </g>
+
+        <g fill="rgba(255,220,100,0.6)">
+          <circle cx="145" cy="330" r="1.5" />
+          <circle cx="105" cy="290" r="1" />
+          <circle cx="195" cy="300" r="1.5" />
+          <circle cx="90" cy="390" r="1" />
+        </g>
+      </svg>
           
-          <div class="step-content">
-            <div class="step-header">
-              <span class="step-phase">{{ step.phase }}</span>
-              <h3 class="step-title">{{ step.title }}</h3>
-            </div>
-            
-            <!-- Revenue data -->
-            <div class="revenue-data">
-              <div class="revenue-row">
-                <span class="revenue-label">Hardware:</span>
-                <span class="revenue-value">{{ formatRevenue(step.revenue.hardware) }} M€</span>
+          <!-- ===== STATION SOL ===== -->
+          <div class="absolute bottom-1/4 left-10">
+            <div class="relative flex flex-col items-center">
+              <div class="relative">
+                <div class="h-12 w-1 bg-slate-400 rounded-full"></div>
+                <div class="absolute -top-2 -left-4 h-4 w-8 bg-slate-300 rounded-full"></div>
+                <div class="absolute -top-2 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-green-400"></div>
               </div>
-              <div class="revenue-row">
-                <span class="revenue-label">Software:</span>
-                <span class="revenue-value">{{ formatRevenue(step.revenue.software) }} M€</span>
-              </div>
-              <div class="revenue-row software-percent">
-                <span class="revenue-label">Software %:</span>
-                <span class="revenue-value">{{ step.revenue.softwarePercent }}</span>
-              </div>
-              <div class="revenue-row total">
-                <span class="revenue-label">Total:</span>
-                <span class="revenue-value">{{ formatRevenue(step.revenue.total) }} M€</span>
-              </div>
-            </div>
-
-            <!-- Gantt data if present -->
-            <div v-if="step.ganttData" class="gantt-preview">
-              <div class="gantt-bar" :style="{ width: step.ganttData.progress + '%' }"></div>
-            </div>
-
-            <!-- Specific badges -->
-            <div v-if="step.badges" class="step-badges">
-              <span 
-                v-for="(badge, i) in step.badges" 
-                :key="i"
-                class="badge"
-                :class="badge.type"
-              >
-                {{ badge.text }}
+              <div class="mt-1 h-6 w-10 rounded-t-sm bg-slate-700/80 border border-slate-600"></div>
+              <div class="mt-1 h-1 w-14 bg-slate-800/50"></div>
+              <span class="mt-2 text-sm font-medium text-blue-900">
+                Ground Station
               </span>
             </div>
-
-            <!-- Description -->
-            <p class="step-description">{{ step.description }}</p>
           </div>
+
+          <!-- ===== SATELLITE AMI ===== -->
+          <div class="absolute left-1/2 top-1/4 -translate-x-1/2 -translate-y-1/2">
+            <div class="relative flex flex-col items-center">
+              <div class="relative">
+                <div class="h-12 w-12 rounded-full bg-slate-200 shadow-lg shadow-blue-500/20">
+                  <div class="absolute -left-8 top-1/2 h-3 w-8 -translate-y-1/2 bg-blue-300/80 rounded-l"></div>
+                  <div class="absolute -right-8 top-1/2 h-3 w-8 -translate-y-1/2 bg-blue-300/80 rounded-r"></div>
+                  <div class="absolute -top-3 left-1/2 h-3 w-0.5 -translate-x-1/2 bg-slate-400"></div>
+                  <div class="absolute -top-5 left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-red-500 animate-pulse"></div>
+                </div>
+                <div
+                  v-if="isProtected"
+                  class="absolute inset-[-45px] rounded-full border-4 border-cyan-400 shadow-[0_0_80px_rgba(34,211,238,0.8)] animate-pulse"
+                ></div>
+                <div
+                  v-if="jamming && !isProtected"
+                  class="absolute inset-[-15px] rounded-full border-4 border-red-500/50 animate-ping"
+                ></div>
+              </div>
+              <span class="mt-2 text-sm font-medium text-white">Friendly Satellite</span>
+            </div>
+          </div>
+
+          <!-- ===== JAMMER ===== -->
+          <div class="absolute top-1/3 right-12">
+            <div class="relative flex flex-col items-center">
+              <div class="relative">
+                <div class="h-10 w-10 rounded-full bg-red-900/80 border border-red-700/50 shadow-lg shadow-red-500/20 flex items-center justify-center">
+                  <span class="text-xs font-bold text-red-300">J</span>
+                </div>
+                <div class="absolute -top-3 left-1/2 h-4 w-0.5 -translate-x-1/2 bg-red-500"></div>
+                <div class="absolute -top-5 left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-red-400 animate-pulse"></div>
+              </div>
+              <span class="mt-2 text-sm font-medium text-red-400">Jammer</span>
+            </div>
+          </div>
+
+          <!-- ===== SIGNAL LÉGITIME ===== -->
+          <svg class="absolute inset-0 h-full w-full pointer-events-none" viewBox="0 0 800 450">
+            <g v-if="!(jamming && !isProtected)">
+              <path
+                :d="sineWaveVariable(70, 250, 400, 120, 5, 40, 15, 0)"
+                fill="none"
+                :stroke="signalColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+              >
+                <animate attributeName="stroke-dashoffset" from="0" to="-80" dur="1.2s" repeatCount="indefinite" />
+              </path>
+              <path
+                :d="sineWaveVariable(70, 250, 400, 120, 5, 40, 15, 4)"
+                fill="none"
+                :stroke="signalColorSecondary"
+                stroke-width="2"
+                stroke-linecap="round"
+                opacity="0.4"
+              >
+                <animate attributeName="stroke-dashoffset" from="0" to="-80" dur="1.2s" repeatCount="indefinite" />
+              </path>
+            </g>
+
+            <g v-if="jamming">
+              <path
+                :d="jammingPath"
+                fill="none"
+                stroke="#ef4444"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                opacity="0.9"
+              >
+                <animate attributeName="stroke-dashoffset" from="0" to="-60" dur="0.8s" repeatCount="indefinite" />
+              </path>
+              <path
+                :d="jammingPathSecondary"
+                fill="none"
+                stroke="#dc2626"
+                stroke-width="2"
+                stroke-linecap="round"
+                opacity="0.5"
+              >
+                <animate attributeName="stroke-dashoffset" from="0" to="-60" dur="0.8s" repeatCount="indefinite" />
+              </path>
+            </g>
+          </svg>
+
+          <!-- ===== SIGNAL ERRATIQUE ===== -->
+          <div v-if="jamming && !isProtected" class="absolute inset-0 pointer-events-none">
+            <svg class="h-full w-full" viewBox="0 0 800 450">
+              <g fill="none" stroke="#f87171" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline :points="erraticPulse(87, 244, 98, 238, 12, 0.1)">
+                  <animate attributeName="opacity" values="0.9;0;0.9" dur="0.15s" repeatCount="indefinite" />
+                </polyline>
+                <polyline :points="erraticPulse(113, 230, 124, 224, 18, 0.3)">
+                  <animate attributeName="opacity" values="0.8;0;0.8" dur="0.12s" repeatCount="indefinite" />
+                </polyline>
+                <polyline :points="erraticPulse(139, 216, 150, 210, 14, 0.5)">
+                  <animate attributeName="opacity" values="0.9;0;0.9" dur="0.18s" repeatCount="indefinite" />
+                </polyline>
+                <polyline :points="erraticPulse(166, 202, 177, 196, 22, 0.05)">
+                  <animate attributeName="opacity" values="0.7;0;0.7" dur="0.1s" repeatCount="indefinite" />
+                </polyline>
+                <polyline :points="erraticPulse(192, 188, 203, 182, 16, 0.6)">
+                  <animate attributeName="opacity" values="0.9;0;0.9" dur="0.14s" repeatCount="indefinite" />
+                </polyline>
+                <polyline :points="erraticPulse(218, 174, 229, 168, 25, 0.2)">
+                  <animate attributeName="opacity" values="0.8;0;0.8" dur="0.09s" repeatCount="indefinite" />
+                </polyline>
+                <polyline :points="erraticPulse(244, 160, 255, 154, 19, 0.4)">
+                  <animate attributeName="opacity" values="0.9;0;0.9" dur="0.2s" repeatCount="indefinite" />
+                </polyline>
+                <polyline :points="erraticPulse(270, 146, 281, 140, 23, 0.15)">
+                  <animate attributeName="opacity" values="0.7;0;0.7" dur="0.11s" repeatCount="indefinite" />
+                </polyline>
+                <polyline :points="erraticPulse(296, 132, 307, 126, 17, 0.45)">
+                  <animate attributeName="opacity" values="0.9;0;0.9" dur="0.16s" repeatCount="indefinite" />
+                </polyline>
+                <polyline :points="erraticPulse(322, 118, 333, 112, 26, 0.25)">
+                  <animate attributeName="opacity" values="0.8;0;0.8" dur="0.13s" repeatCount="indefinite" />
+                </polyline>
+                <polyline :points="erraticPulse(348, 104, 359, 98, 20, 0.5)">
+                  <animate attributeName="opacity" values="0.9;0;0.9" dur="0.17s" repeatCount="indefinite" />
+                </polyline>
+                <polyline :points="erraticPulse(374, 90, 385, 84, 14, 0.1)">
+                  <animate attributeName="opacity" values="0.9;0;0.9" dur="0.12s" repeatCount="indefinite" />
+                </polyline>
+                <polyline :points="erraticPulse(395, 120, 406, 118, 10, 0.3)">
+                  <animate attributeName="opacity" values="0.8;0;0.8" dur="0.08s" repeatCount="indefinite" />
+                </polyline>
+              </g>
+
+              <g fill="#fbbf24">
+                <circle cx="100" cy="240" r="3">
+                  <animate attributeName="opacity" values="1;0;1" dur="0.2s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="145" cy="220" r="4">
+                  <animate attributeName="opacity" values="1;0;1" dur="0.15s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="200" cy="190" r="3.5">
+                  <animate attributeName="opacity" values="1;0;1" dur="0.25s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="265" cy="155" r="3">
+                  <animate attributeName="opacity" values="1;0;1" dur="0.18s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="330" cy="120" r="4">
+                  <animate attributeName="opacity" values="1;0;1" dur="0.12s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="385" cy="95" r="3.5">
+                  <animate attributeName="opacity" values="1;0;1" dur="0.22s" repeatCount="indefinite" />
+                </circle>
+              </g>
+
+              <g stroke="#fca5a5" stroke-width="1.5" stroke-linecap="round" opacity="0.6">
+                <line x1="92" y1="242" x2="97" y2="237">
+                  <animate attributeName="opacity" values="0.6;0;0.6" dur="0.1s" repeatCount="indefinite" />
+                </line>
+                <line x1="125" y1="228" x2="130" y2="223">
+                  <animate attributeName="opacity" values="0.5;0;0.5" dur="0.13s" repeatCount="indefinite" />
+                </line>
+                <line x1="175" y1="205" x2="180" y2="200">
+                  <animate attributeName="opacity" values="0.7;0;0.7" dur="0.09s" repeatCount="indefinite" />
+                </line>
+                <line x1="235" y1="172" x2="240" y2="167">
+                  <animate attributeName="opacity" values="0.4;0;0.4" dur="0.14s" repeatCount="indefinite" />
+                </line>
+                <line x1="295" y1="140" x2="300" y2="135">
+                  <animate attributeName="opacity" values="0.6;0;0.6" dur="0.11s" repeatCount="indefinite" />
+                </line>
+                <line x1="370" y1="100" x2="375" y2="95">
+                  <animate attributeName="opacity" values="0.5;0;0.5" dur="0.12s" repeatCount="indefinite" />
+                </line>
+              </g>
+            </svg>
+          </div>
+
+          <!-- ===== MESSAGES ===== -->
+          <div
+            v-if="detected"
+            class="absolute left-1/2 top-2 -translate-x-1/2 rounded-full px-4 py-2 text-base font-semibold text-red-400 border border-red-500/20"
+          >
+            ⚡ JAMMING DETECTED – PROTECTION ACTIVE
+          </div>
+
+          <div
+            v-if="isProtected && jamming"
+            class="absolute left-2/3 top-24 -translate-x-1/2 text-sm font-medium text-cyan-400 px-3 py-1 rounded-full border border-cyan-500/20"
+          >
+            🛡️ Jamming absorbed
+          </div>
+
+          <!-- ===== STATUS ===== -->
+          <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-center">
+            <p class="text-base text-slate-400">
+              Status:
+              <span v-if="!jamming" class="text-green-400">🟢 Secure</span>
+              <span v-else-if="jamming && !isProtected" class="text-red-400">🔴 Jamming</span>
+              <span v-else-if="jamming && isProtected" class="text-cyan-400">🛡️ Protected</span>
+            </p>
+          </div>
+
+        </div><!-- fin zone visuelle -->
+
+        <!-- ===== CONTRÔLES ===== -->
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-4">
+          <button
+            @click="toggleJamming"
+            class="inline-flex items-center gap-2 rounded-lg px-6 py-3 text-base font-medium transition hover:scale-105"
+            :class="jamming ? 'bg-red-600 hover:bg-red-500 text-white' : 'bg-blue-600 hover:bg-blue-500 text-white'"
+          >
+            <span v-if="!jamming">▶ Activate Jamming</span>
+            <span v-else>⏹ Stop Jamming</span>
+          </button>
+          <button
+            @click="resetDemo"
+            class="rounded-lg border border-slate-600 px-6 py-3 text-base font-medium text-slate-300 transition hover:border-slate-400 hover:bg-slate-800/50"
+          >
+            Reset
+          </button>
+        </div>
+
+        <!-- ===== LÉGENDE ===== -->
+        <div class="mt-4 flex flex-wrap justify-center gap-6 text-sm text-slate-500">
+          <span class="flex items-center gap-1">
+            <span class="inline-block h-3 w-3 rounded-full bg-green-400"></span>
+            Legitimate Signal
+          </span>
+          <span class="flex items-center gap-1">
+            <span class="inline-block h-3 w-3 rounded-full bg-red-500"></span>
+            Jamming Emission
+          </span>
+          <span class="flex items-center gap-1">
+            <span class="inline-block h-3 w-3 rounded-full border-2 border-cyan-400 bg-transparent"></span>
+            Bastion Space Shield
+          </span>
+          <span class="flex items-center gap-1">
+            <span class="inline-block h-3 w-3 rounded-full bg-yellow-400"></span>
+            RF Interference
+          </span>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 </template>
 
-<script>
-export default {
-  name: 'BusinessTimeline',
-  data() {
-    return {
-      activeStep: 0,
-      stepRefs: [],
-      timelineSteps: [
-        {
-          year: 1,
-          phase: '0/A',
-          title: 'Module prototype',
-          phaseType: 'prototype',
-          description: 'Radio frequency prototype development and validation',
-          revenue: {
-            hardware: 0.00,
-            software: 0.00,
-            softwarePercent: '-%',
-            total: 0.00
-          },
-          badges: [
-            { text: 'Prototype', type: 'technical' }
-          ],
-          ganttData: {
-            progress: 0
-          }
-        },
-        {
-          year: 2,
-          phase: 'B',
-          title: 'Integration',
-          phaseType: 'integration',
-          description: 'RF Prototype integration and testing',
-          revenue: {
-            hardware: 0.32,
-            software: 0.07,
-            softwarePercent: '17.95%',
-            total: 0.39
-          },
-          badges: [
-            { text: 'Integration', type: 'technical' }
-          ],
-          ganttData: {
-            progress: 10
-          }
-        },
-        {
-          year: 3,
-          phase: 'DAEMON',
-          title: 'DAEMON Demonstrator',
-          phaseType: 'demonstrator',
-          description: 'DAEMON technological demonstrator development',
-          revenue: {
-            hardware: 2.24,
-            software: 0.56,
-            softwarePercent: '20.00%',
-            total: 2.80
-          },
-          badges: [
-            { text: 'Demonstrator', type: 'technical' },
-            { text: 'T3/T5/T7', type: 'phase' }
-          ],
-          ganttData: {
-            progress: 20
-          }
-        },
-        {
-          year: 4,
-          phase: 'First institutional contracts',
-          title: 'CNES, ESA, DGA',
-          phaseType: 'institutional',
-          description: 'First contracts with space agencies and institutions',
-          revenue: {
-            hardware: 3.20,
-            software: 1.26,
-            softwarePercent: '28.25%',
-            total: 4.46
-          },
-          badges: [
-            { text: 'Contracts', type: 'commercial' },
-            { text: 'Institutional', type: 'client' }
-          ],
-          ganttData: {
-            progress: 30
-          }
-        },
-        {
-          year: 5,
-          phase: 'First NewSpace contracts',
-          title: 'Entry into NewSpace market',
-          phaseType: 'newspace',
-          description: 'First contracts with NewSpace players (startups, constellations)',
-          revenue: {
-            hardware: 7.20,
-            software: 2.84,
-            softwarePercent: '28.25%',
-            total: 10.00
-          },
-          badges: [
-            { text: 'NewSpace', type: 'market' },
-            { text: 'Commercial', type: 'commercial' }
-          ],
-          ganttData: {
-            progress: 40
-          }
-        },
-        {
-          year: 6,
-          phase: 'Commercial structuring',
-          title: 'Sales team setup',
-          phaseType: 'commercial',
-          description: 'Sales force structuring and distribution channels',
-          revenue: {
-            hardware: 12.80,
-            software: 5.64,
-            softwarePercent: '30.57%',
-            total: 18.44
-          },
-          badges: [
-            { text: 'Team', type: 'structure' },
-            { text: 'Strategy', type: 'business' }
-          ],
-          ganttData: {
-            progress: 50
-          }
-        },
-        {
-          year: 7,
-          phase: 'Acceleration',
-          title: 'Growth phase',
-          phaseType: 'growth',
-          description: 'Rapid growth and market expansion',
-          revenue: {
-            hardware: 20.80,
-            software: 10.20,
-            softwarePercent: '32.87%',
-            total: 31.00
-          },
-          badges: [
-            { text: 'Growth', type: 'milestone' },
-            { text: 'Scaling', type: 'business' }
-          ],
-          ganttData: {
-            progress: 60
-          }
-        },
-        {
-          year: 8,
-          phase: 'Consolidation',
-          title: 'Market consolidation',
-          phaseType: 'consolidation',
-          description: 'Portfolio consolidation and optimization',
-          revenue: {
-            hardware: 32.00,
-            software: 17.20,
-            softwarePercent: '34.94%',
-            total: 49.20
-          },
-          badges: [
-            { text: 'Optimization', type: 'technical' }
-          ],
-          ganttData: {
-            progress: 70
-          }
-        },
-        {
-          year: 9,
-          phase: 'Beginning of mega-constellations',
-          title: 'Mega-constellation market entry',
-          phaseType: 'megaconstellation',
-          description: 'First deployments for mega-constellation projects',
-          revenue: {
-            hardware: 48.00,
-            software: 27.70,
-            softwarePercent: '36.58%',
-            total: 75.70
-          },
-          badges: [
-            { text: 'Mega-constellations', type: 'market' },
-            { text: 'Massive', type: 'milestone' }
-          ],
-          ganttData: {
-            progress: 80
-          }
-        },
-        {
-          year: 10,
-          phase: 'Massive deployment',
-          title: 'Industrial scale',
-          phaseType: 'deployment',
-          description: 'Large-scale industrial deployment',
-          revenue: {
-            hardware: 72.00,
-            software: 43.40,
-            softwarePercent: '37.63%',
-            total: 115.00
-          },
-          badges: [
-            { text: 'Industrial', type: 'milestone' },
-            { text: 'Scale-up', type: 'business' }
-          ],
-          ganttData: {
-            progress: 90
-          }
-        },
+<script setup lang="ts">
+import { ref, computed, onBeforeUnmount } from 'vue'
 
-        {
-          year: 11,
-          phase: 'European Leader',
-          title: 'European market leadership',
-          phaseType: 'leader',
-          description: 'Establishment as European leader in space RF technology',
-          revenue: {
-            hardware: 160.00,
-            software: 103.00,
-            softwarePercent: '39.15%',
-            total: 263.00
-          },
-          badges: [
-            { text: 'Market Leader', type: 'milestone' },
-            { text: 'European', type: 'business' }
-          ],
-          ganttData: {
-            progress: 100
-          }
-        }
-      ]
+// --- État ---
+const jamming = ref(false)
+const isProtected = ref(false)
+const detected = ref(false)
+let timeoutId: number | null = null
+
+// --- Fond interactif ---
+const sectionRef = ref<HTMLElement | null>(null)
+const mouseX = ref(50)
+const mouseY = ref(50)
+
+function handleMouseMove(event: MouseEvent) {
+  if (!sectionRef.value) return
+  const rect = sectionRef.value.getBoundingClientRect()
+  const x = ((event.clientX - rect.left) / rect.width) * 100
+  const y = ((event.clientY - rect.top) / rect.height) * 100
+  mouseX.value = Math.min(100, Math.max(0, x))
+  mouseY.value = Math.min(100, Math.max(0, y))
+}
+
+function handleMouseLeave() {
+  mouseX.value = 50
+  mouseY.value = 50
+}
+
+// --- Couleurs du signal ---
+const signalColor = computed(() => {
+  if (jamming.value && !isProtected.value) return '#f87171'
+  return '#4ade80'
+})
+
+const signalColorSecondary = computed(() => {
+  if (jamming.value && !isProtected.value) return '#dc2626'
+  return '#22c55e'
+})
+
+// --- Fonctions ---
+function sineWaveVariable(
+  x1: number,
+  y1: number,
+  x2: number,
+  y2: number,
+  amplitudeMin: number,
+  amplitudeMax: number,
+  wavelength: number,
+  phase: number = 0
+): string {
+  const steps = 60
+  let path = `M ${x1} ${y1}`
+  
+  const dx = x2 - x1
+  const dy = y2 - y1
+  const length = Math.sqrt(dx * dx + dy * dy)
+  if (length === 0) return path + ` L ${x2} ${y2}`
+  
+  const nx = -dy / length
+  const ny = dx / length
+  
+  for (let i = 0; i <= steps; i++) {
+    const t = i / steps
+    const px = x1 + t * dx
+    const py = y1 + t * dy
+    const amplitude = amplitudeMin + (amplitudeMax - amplitudeMin) * (t * t * 0.8 + t * 0.2)
+    const angle = (i / steps) * 2 * Math.PI * (steps / wavelength) + phase
+    const offset = amplitude * Math.sin(angle)
+    const ox = px + nx * offset
+    const oy = py + ny * offset
+    path += ` L ${ox.toFixed(2)} ${oy.toFixed(2)}`
+  }
+  
+  return path
+}
+
+function sineWavePartial(
+  x1: number,
+  y1: number,
+  x2: number,
+  y2: number,
+  amplitudeMin: number,
+  amplitudeMax: number,
+  wavelength: number,
+  phase: number = 0,
+  fraction: number = 1
+): string {
+  const steps = 60
+  const maxSteps = Math.floor(steps * fraction)
+  let path = `M ${x1} ${y1}`
+  
+  const dx = x2 - x1
+  const dy = y2 - y1
+  const length = Math.sqrt(dx * dx + dy * dy)
+  if (length === 0) return path + ` L ${x2} ${y2}`
+  
+  const nx = -dy / length
+  const ny = dx / length
+  
+  for (let i = 0; i <= maxSteps; i++) {
+    const t = i / steps
+    const px = x1 + t * dx
+    const py = y1 + t * dy
+    const amplitude = amplitudeMin + (amplitudeMax - amplitudeMin) * (t * t * 0.8 + t * 0.2)
+    const angle = (i / steps) * 2 * Math.PI * (steps / wavelength) + phase
+    const offset = amplitude * Math.sin(angle)
+    const ox = px + nx * offset
+    const oy = py + ny * offset
+    path += ` L ${ox.toFixed(2)} ${oy.toFixed(2)}`
+  }
+  
+  return path
+}
+
+function erraticPulse(
+  x1: number,
+  y1: number,
+  x2: number,
+  y2: number,
+  amplitude: number,
+  offset: number
+): string {
+  const midX = (x1 + x2) / 2 + (Math.random() - 0.5) * 30
+  const midY = (y1 + y2) / 2 - amplitude + (Math.random() - 0.5) * 20
+  return `${x1},${y1} ${midX},${midY} ${x2},${y2}`
+}
+
+// --- Chemins du signal de brouillage ---
+const jammingPath = computed(() => {
+  if (isProtected.value) {
+    return sineWavePartial(740, 130, 400, 120, 5, 30, 12, 0, 0.80)
+  } else {
+    return sineWaveVariable(740, 130, 400, 120, 5, 30, 12, 0)
+  }
+})
+
+const jammingPathSecondary = computed(() => {
+  if (isProtected.value) {
+    return sineWavePartial(740, 130, 400, 120, 5, 30, 12, 3, 0.80)
+  } else {
+    return sineWaveVariable(740, 130, 400, 120, 5, 30, 12, 3)
+  }
+})
+
+// --- Méthodes ---
+function toggleJamming() {
+  if (jamming.value) {
+    jamming.value = false
+    isProtected.value = false
+    detected.value = false
+    if (timeoutId) {
+      clearTimeout(timeoutId)
+      timeoutId = null
     }
-  },
-  mounted() {
-    this.initScrollListener();
-  },
-  methods: {
-    initScrollListener() {
-      window.addEventListener('scroll', this.handleScroll);
-      const container = this.$refs.timelineContainer;
-      if (container) {
-        container.addEventListener('scroll', this.handleContainerScroll);
+  } else {
+    jamming.value = true
+    isProtected.value = false
+    detected.value = false
+    timeoutId = setTimeout(() => {
+      if (jamming.value) {
+        isProtected.value = true
+        detected.value = true
       }
-    },
-    handleScroll() {
-      this.updateActiveStep();
-    },
-    handleContainerScroll() {
-      this.updateActiveStep();
-    },
-    updateActiveStep() {
-      for (let i = 0; i < this.stepRefs.length; i++) {
-        const step = this.stepRefs[i];
-        if (step) {
-          const rect = step.getBoundingClientRect();
-          const viewportHeight = window.innerHeight;
-          
-          if (rect.top <= viewportHeight / 2 && rect.bottom >= viewportHeight / 2) {
-            this.activeStep = i;
-            break;
-          }
-        }
-      }
-    },
-    formatRevenue(value) {
-      return value.toFixed(2);
-    }
-  },
-  beforeDestroy() {
-    window.removeEventListener('scroll', this.handleScroll);
-    const container = this.$refs.timelineContainer;
-    if (container) {
-      container.removeEventListener('scroll', this.handleContainerScroll);
-    }
+      timeoutId = null
+    }, 2000)
   }
 }
+
+function resetDemo() {
+  if (timeoutId) {
+    clearTimeout(timeoutId)
+    timeoutId = null
+  }
+  jamming.value = false
+  isProtected.value = false
+  detected.value = false
+}
+
+onBeforeUnmount(() => {
+  if (timeoutId) {
+    clearTimeout(timeoutId)
+  }
+})
 </script>
 
 <style scoped>
-.business-timeline {
-  position: relative;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 50px 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-.timeline-container {
-  position: relative;
-  min-height: 100vh;
-}
-
-.timeline-line {
+.stars {
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 3px;
-  height: 100%;
-  background: linear-gradient(180deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
-  z-index: 1;
+  inset: 0;
+  background-image: radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+                    radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+                    radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+                    radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+                    radial-gradient(2px 2px at 160px 30px, #ddd, transparent);
+  background-size: 200px 100px;
+  background-repeat: repeat;
+  opacity: 0.4;
+  pointer-events: none;
 }
 
-.timeline-steps {
-  position: relative;
-  z-index: 2;
-}
-
-.timeline-step {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 120px;
-  opacity: 0.5;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-}
-
-.timeline-step.active {
-  opacity: 1;
-  transform: scale(1.02);
-}
-
-.step-marker {
-  flex: 0 0 80px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-}
-
-.step-dot {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #3b82f6;
-  transition: all 0.3s ease;
-  z-index: 3;
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
-}
-
-.timeline-step.active .step-dot {
-  transform: scale(1.5);
-  box-shadow: 0 0 0 8px rgba(59, 130, 246, 0.3);
-}
-
-/* Phase type colors */
-.step-dot.prototype { background: #10b981; }
-.step-dot.integration { background: #f59e0b; }
-.step-dot.demonstrator { background: #f59e0b; }
-.step-dot.institutional { background: #8b5cf6; }
-.step-dot.newspace { background: #ec4899; }
-.step-dot.commercial { background: #ef4444; }
-.step-dot.growth { background: #14b8a6; }
-.step-dot.consolidation { background: #6366f1; }
-.step-dot.megaconstellation { background: #a855f7; }
-.step-dot.deployment { background: #06b6d4; }
-.step-dot.leader { background: #f97316; } 
-
-.step-year {
-  margin-top: 8px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #64748b;
-}
-
-.step-content {
-  flex: 1;
-  max-width: 450px;
-  padding: 24px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  margin-left: 40px;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.timeline-step.active .step-content {
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-  border-color: #3b82f6;
-}
-
-.step-header {
-  margin-bottom: 16px;
-}
-
-.step-phase {
-  display: inline-block;
-  padding: 4px 12px;
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-  color: white;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  margin-bottom: 12px;
-}
-
-.step-title {
-  margin: 8px 0 0 0;
-  color: #0f172a;
-  font-size: 1.4rem;
-  font-weight: 700;
-}
-
-.revenue-data {
-  margin: 16px 0;
-  padding: 16px;
-  background: #f8fafc;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-}
-
-.revenue-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 6px 0;
-  font-size: 0.95rem;
-  border-bottom: 1px dashed #e2e8f0;
-}
-
-.revenue-row:last-child {
-  border-bottom: none;
-}
-
-.revenue-row.total {
-  margin-top: 6px;
-  padding-top: 10px;
-  border-top: 2px solid #cbd5e1;
-  font-weight: 700;
-  color: #0f172a;
-}
-
-.revenue-row.software-percent {
-  color: #2563eb;
-  font-weight: 500;
-}
-
-.revenue-label {
-  color: #475569;
-}
-
-.revenue-value {
-  font-family: monospace;
-  font-weight: 600;
-  color: #0f172a;
-}
-
-.gantt-preview {
-  margin: 16px 0 12px 0;
-}
-
-.gantt-bar {
-  height: 6px;
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-  border-radius: 3px;
-  transition: width 0.3s ease;
-}
-
-.step-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 16px 0;
-}
-
-.badge {
-  padding: 4px 10px;
-  border-radius: 16px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-}
-
-.badge.technical { background: #dbeafe; color: #1e40af; }
-.badge.commercial { background: #dcfce7; color: #166534; }
-.badge.market { background: #fef3c7; color: #92400e; }
-.badge.client { background: #f3e8ff; color: #6b21a8; }
-.badge.structure { background: #ffe4e6; color: #9f1239; }
-.badge.business { background: #cffafe; color: #155e75; }
-.badge.milestone { background: #f1f5f9; color: #334155; }
-.badge.phase { background: #ede9fe; color: #5b21b6; }
-
-.step-description {
-  margin: 12px 0 0 0;
-  color: #475569;
-  line-height: 1.5;
-  font-size: 0.95rem;
-}
-
-/* Alternating layout */
-.timeline-step:nth-child(even) .step-content {
-  margin-left: auto;
-  margin-right: 40px;
-  text-align: right;
-}
-
-.timeline-step:nth-child(even) {
-  flex-direction: row-reverse;
-}
-
-.timeline-step:nth-child(even) .step-badges {
-  justify-content: flex-end;
-}
-
-.timeline-step:nth-child(even) .revenue-row {
-  flex-direction: row-reverse;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .timeline-line {
-    left: 40px;
-  }
-  
-  .timeline-step {
-    flex-direction: column !important;
-    align-items: flex-start;
-    margin-left: 60px;
-    margin-bottom: 80px;
-  }
-  
-  .step-marker {
-    position: absolute;
-    left: -60px;
-  }
-  
-  .step-content {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    width: 100%;
-    text-align: left !important;
-  }
-  
-  .timeline-step:nth-child(even) .step-badges {
-    justify-content: flex-start;
-  }
-  
-  .timeline-step:nth-child(even) .revenue-row {
-    flex-direction: row !important;
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
   }
 }
+.animate-ping {
+  animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
 
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+path {
+  stroke-dasharray: 30 50;
+  stroke-dashoffset: 0;
 }
 </style>

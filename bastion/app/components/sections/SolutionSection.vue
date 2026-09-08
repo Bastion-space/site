@@ -12,11 +12,11 @@
 
       <div class="mt-8 text-center">
         <h1 class="text-8xl font-black tracking-tighter text-white sm:text-9xl md:text-[10rem]">
-          DAEMON
+          BASTION SPACE
         </h1>
         <div class="mt-4 flex justify-center gap-4">
           <span class="rounded-full bg-red-900/40 px-6 py-2 text-sm font-semibold uppercase tracking-wider text-red-300">
-            Active RF Defense
+            Continuous RF Defense
           </span>
           <span class="rounded-full bg-slate-800 px-6 py-2 text-sm font-semibold uppercase tracking-wider text-slate-300">
             Defense Grade
