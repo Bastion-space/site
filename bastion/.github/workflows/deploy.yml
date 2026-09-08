@@ -31,7 +31,8 @@ jobs:
 
       - name: Build static site
         run: pnpm run generate
-
+        env:
+            PNPM_IGNORE_BUILDS: true
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
