@@ -56,7 +56,7 @@
 
     <div
       v-show="open"
-      class="border-t border-slate-800/80 bg-slate-900/95 px-4 py-4 md:hidden"
+      class="absolute left-0 right-0 top-full z-50 border-t border-slate-800/80 bg-slate-900/95 px-4 py-4 shadow-lg md:hidden"
     >
       <ul class="flex flex-col gap-4">
         <li v-for="item in navLinks" :key="item.id">

@@ -121,13 +121,13 @@
           </svg>
 
           <!-- ===== LIBELLÉS (HTML, taille indépendante de l'échelle du SVG pour rester lisibles sur mobile) ===== -->
-          <span class="pointer-events-none absolute top-[70%] left-[8.75%] -translate-x-1/2 whitespace-nowrap text-xs font-semibold text-blue-300 sm:text-sm">
+          <span class="pointer-events-none absolute top-[70%] left-1 whitespace-nowrap text-[10px] font-semibold text-blue-300 sm:left-[8.75%] sm:-translate-x-1/2 sm:text-sm">
             Ground Station
           </span>
-          <span class="pointer-events-none absolute top-[38%] left-1/2 -translate-x-1/2 whitespace-nowrap text-xs font-semibold text-white sm:text-sm">
+          <span class="pointer-events-none absolute top-[38%] left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-semibold text-white sm:text-sm">
             Friendly Satellite
           </span>
-          <span class="pointer-events-none absolute top-[33%] left-[92.5%] -translate-x-1/2 whitespace-nowrap text-xs font-semibold text-red-400 sm:text-sm">
+          <span class="pointer-events-none absolute top-[33%] right-1 whitespace-nowrap text-[10px] font-semibold text-red-400 sm:left-[92.5%] sm:right-auto sm:-translate-x-1/2 sm:text-sm">
             Jammer
           </span>
 
@@ -278,11 +278,11 @@
           </div>
 
           <div
-            v-if="isProtected && jamming"
-            class="absolute left-1/2 top-[38%] -translate-x-1/2 whitespace-nowrap text-[10px] font-medium text-cyan-400 px-2 py-1 rounded-full border border-cyan-500/20 sm:px-3 sm:text-sm"
-          >
-            🛡️ Jamming absorbed
-          </div>
+  v-if="isProtected && jamming"
+  class="absolute left-1/2 top-[50%] -translate-x-1/2 whitespace-nowrap text-[10px] font-medium text-cyan-400 px-2 py-1 rounded-full border border-cyan-500/20 sm:top-[48%] sm:px-3 sm:text-sm"
+>
+  🛡️ Jamming absorbed
+</div>
 
           <!-- ===== STATUS ===== -->
           <div class="absolute bottom-[3%] left-1/2 -translate-x-1/2 text-center">
