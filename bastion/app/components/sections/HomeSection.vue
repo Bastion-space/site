@@ -1,7 +1,7 @@
 <template>
   <section
     id="home"
-    class="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gradient-to-b from-slate-900/80 to-transparent px-4 py-24 sm:px-6 sm:py-32 lg:px-8"
+    class="relative flex min-h-dvh flex-col justify-center overflow-hidden bg-gradient-to-b from-slate-900/80 to-transparent px-4 py-24 sm:px-6 sm:py-32 lg:px-8"
   >
     <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(59,130,246,0.15),transparent)]" />
 

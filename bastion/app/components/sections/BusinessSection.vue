@@ -79,59 +79,58 @@
           <circle cx="90" cy="390" r="1" />
         </g>
       </svg>
-          
-          <!-- ===== STATION SOL ===== -->
-          <div class="absolute bottom-1/4 left-10">
-            <div class="relative flex flex-col items-center">
-              <div class="relative">
-                <div class="h-12 w-1 bg-slate-400 rounded-full"></div>
-                <div class="absolute -top-2 -left-4 h-4 w-8 bg-slate-300 rounded-full"></div>
-                <div class="absolute -top-2 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-green-400"></div>
-              </div>
-              <div class="mt-1 h-6 w-10 rounded-t-sm bg-slate-700/80 border border-slate-600"></div>
-              <div class="mt-1 h-1 w-14 bg-slate-800/50"></div>
-              <span class="mt-2 text-sm font-medium text-blue-900">
-                Ground Station
-              </span>
-            </div>
-          </div>
 
-          <!-- ===== SATELLITE AMI ===== -->
-          <div class="absolute left-1/2 top-1/4 -translate-x-1/2 -translate-y-1/2">
-            <div class="relative flex flex-col items-center">
-              <div class="relative">
-                <div class="h-12 w-12 rounded-full bg-slate-200 shadow-lg shadow-blue-500/20">
-                  <div class="absolute -left-8 top-1/2 h-3 w-8 -translate-y-1/2 bg-blue-300/80 rounded-l"></div>
-                  <div class="absolute -right-8 top-1/2 h-3 w-8 -translate-y-1/2 bg-blue-300/80 rounded-r"></div>
-                  <div class="absolute -top-3 left-1/2 h-3 w-0.5 -translate-x-1/2 bg-slate-400"></div>
-                  <div class="absolute -top-5 left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-red-500 animate-pulse"></div>
-                </div>
-                <div
-                  v-if="isProtected"
-                  class="absolute inset-[-45px] rounded-full border-4 border-cyan-400 shadow-[0_0_80px_rgba(34,211,238,0.8)] animate-pulse"
-                ></div>
-                <div
-                  v-if="jamming && !isProtected"
-                  class="absolute inset-[-15px] rounded-full border-4 border-red-500/50 animate-ping"
-                ></div>
-              </div>
-              <span class="mt-2 text-sm font-medium text-white">Friendly Satellite</span>
-            </div>
-          </div>
+          <!-- ===== STATION SOL / SATELLITE / JAMMER (mêmes coordonnées que les ondes ci-dessous) ===== -->
+          <svg class="absolute inset-0 h-full w-full pointer-events-none" viewBox="0 0 800 450">
+            <!-- Ground Station : ancrée exactement au point d'origine de l'onde (70,250) -->
+            <g>
+              <ellipse cx="70" cy="254" rx="11" ry="5" fill="#cbd5e1" />
+              <circle cx="70" cy="250" r="3" fill="#4ade80" />
+              <line x1="70" y1="257" x2="70" y2="290" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round" vector-effect="non-scaling-stroke" />
+              <rect x="62" y="290" width="16" height="10" fill="rgba(51,65,85,0.85)" stroke="#475569" stroke-width="0.7" vector-effect="non-scaling-stroke" />
+              <rect x="54" y="302" width="32" height="2" fill="rgba(30,41,59,0.5)" />
+            </g>
 
-          <!-- ===== JAMMER ===== -->
-          <div class="absolute top-1/3 right-12">
-            <div class="relative flex flex-col items-center">
-              <div class="relative">
-                <div class="h-10 w-10 rounded-full bg-red-900/80 border border-red-700/50 shadow-lg shadow-red-500/20 flex items-center justify-center">
-                  <span class="text-xs font-bold text-red-300">J</span>
-                </div>
-                <div class="absolute -top-3 left-1/2 h-4 w-0.5 -translate-x-1/2 bg-red-500"></div>
-                <div class="absolute -top-5 left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-red-400 animate-pulse"></div>
-              </div>
-              <span class="mt-2 text-sm font-medium text-red-400">Jammer</span>
-            </div>
-          </div>
+            <!-- Friendly Satellite : ancré exactement au point d'arrivée de l'onde (400,120) -->
+            <g>
+              <rect x="369" y="113" width="13" height="13" rx="1.5" fill="rgba(147,197,253,0.8)" />
+              <rect x="419" y="113" width="13" height="13" rx="1.5" fill="rgba(147,197,253,0.8)" />
+              <circle cx="400" cy="120" r="16" fill="#e2e8f0" />
+              <line x1="400" y1="104" x2="400" y2="94" stroke="#94a3b8" stroke-width="2" vector-effect="non-scaling-stroke" />
+              <circle cx="400" cy="91" r="2.6" fill="#ef4444">
+                <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite" />
+              </circle>
+              <circle v-if="isProtected" cx="400" cy="120" r="42" fill="none" stroke="#22d3ee" stroke-width="4" opacity="0.9" vector-effect="non-scaling-stroke">
+                <animate attributeName="opacity" values="0.9;0.4;0.9" dur="2s" repeatCount="indefinite" />
+              </circle>
+              <circle v-if="jamming && !isProtected" cx="400" cy="120" r="20" fill="none" stroke="rgba(239,68,68,0.6)" stroke-width="4" vector-effect="non-scaling-stroke">
+                <animate attributeName="r" values="20;38" dur="1.5s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0.6;0" dur="1.5s" repeatCount="indefinite" />
+              </circle>
+            </g>
+
+            <!-- Jammer : ancré exactement au point d'origine de l'onde de brouillage (740,130) -->
+            <g>
+              <circle cx="740" cy="130" r="13" fill="rgba(127,29,29,0.85)" stroke="#b91c1c" stroke-width="1.3" vector-effect="non-scaling-stroke" />
+              <text x="740" y="134.5" text-anchor="middle" font-size="12" font-weight="700" fill="#fca5a5" font-family="system-ui, sans-serif">J</text>
+              <line x1="740" y1="117" x2="740" y2="106" stroke="#ef4444" stroke-width="2" vector-effect="non-scaling-stroke" />
+              <circle cx="740" cy="103" r="2.3" fill="#f87171">
+                <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite" />
+              </circle>
+            </g>
+          </svg>
+
+          <!-- ===== LIBELLÉS (HTML, taille indépendante de l'échelle du SVG pour rester lisibles sur mobile) ===== -->
+          <span class="pointer-events-none absolute top-[70%] left-[8.75%] -translate-x-1/2 whitespace-nowrap text-xs font-semibold text-blue-300 sm:text-sm">
+            Ground Station
+          </span>
+          <span class="pointer-events-none absolute top-[38%] left-1/2 -translate-x-1/2 whitespace-nowrap text-xs font-semibold text-white sm:text-sm">
+            Friendly Satellite
+          </span>
+          <span class="pointer-events-none absolute top-[33%] left-[92.5%] -translate-x-1/2 whitespace-nowrap text-xs font-semibold text-red-400 sm:text-sm">
+            Jammer
+          </span>
+
 
           <!-- ===== SIGNAL LÉGITIME ===== -->
           <svg class="absolute inset-0 h-full w-full pointer-events-none" viewBox="0 0 800 450">
@@ -273,21 +272,21 @@
           <!-- ===== MESSAGES ===== -->
           <div
             v-if="detected"
-            class="absolute left-1/2 top-2 -translate-x-1/2 rounded-full px-4 py-2 text-base font-semibold text-red-400 border border-red-500/20"
+            class="absolute left-1/2 top-[2%] w-[92%] max-w-md -translate-x-1/2 whitespace-nowrap rounded-full px-2 py-1 text-center text-[10px] font-semibold text-red-400 border border-red-500/20 sm:w-auto sm:px-4 sm:py-2 sm:text-base"
           >
             ⚡ JAMMING DETECTED – PROTECTION ACTIVE
           </div>
 
           <div
             v-if="isProtected && jamming"
-            class="absolute left-2/3 top-24 -translate-x-1/2 text-sm font-medium text-cyan-400 px-3 py-1 rounded-full border border-cyan-500/20"
+            class="absolute left-1/2 top-[38%] -translate-x-1/2 whitespace-nowrap text-[10px] font-medium text-cyan-400 px-2 py-1 rounded-full border border-cyan-500/20 sm:px-3 sm:text-sm"
           >
             🛡️ Jamming absorbed
           </div>
 
           <!-- ===== STATUS ===== -->
-          <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-center">
-            <p class="text-base text-slate-400">
+          <div class="absolute bottom-[3%] left-1/2 -translate-x-1/2 text-center">
+            <p class="text-xs text-slate-400 sm:text-base">
               Status:
               <span v-if="!jamming" class="text-green-400">🟢 Secure</span>
               <span v-else-if="jamming && !isProtected" class="text-red-400">🔴 Jamming</span>
