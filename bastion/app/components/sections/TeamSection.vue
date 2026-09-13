@@ -4,38 +4,33 @@
     class="scroll-mt-20 px-4 py-20 sm:px-6 sm:py-24 lg:px-8"
   >
     <div class="mx-auto max-w-6xl">
-      <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-        Team
-      </h2>
-      <p class="mt-4 max-w-2xl text-slate-400">
-        The team behind Bastion Space's R&D and strategy.
-      </p>
-      <ul class="mt-12 flex flex-wrap justify-center gap-10">
+      <!-- En-tête centré -->
+      <div class="text-center">
+        <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          Team
+        </h2>
+        <p class="mx-auto mt-4 max-w-2xl text-base text-slate-400 sm:text-lg">
+          The team behind Bastion Space's R&D and strategy.
+        </p>
+      </div>
+
+      <ul class="mt-12 flex flex-wrap justify-center gap-8 sm:gap-10">
         <li
           v-for="(member, i) in team"
           :key="i"
-          class="flex flex-col items-center text-center"
+          class="flex w-full max-w-xs flex-col items-center text-center sm:max-w-sm"
         >
-          <p class="mt-3 text-3xl font-semibold text-white truncate">
-            {{ member.name }}
-          </p>
-          <p class="mt-0.5 text-lg text-slate-500">
-            Telecommunication Engineering Student at ENSEIRB-MATMECA Bordeaux France · {{ member.role }}
-          </p>
-          <p class="mt-3 text-base text-slate-400 ">
-            From ML jamming detection to business strategy.
-          </p>
           <a
             :href="member.linkedin || '#'"
             :target="member.linkedin ? '_blank' : ''"
             :rel="member.linkedin ? 'noopener noreferrer' : ''"
-            class="group relative mt-3 aspect-square w-full max-w-[280px] overflow-hidden rounded-xl border border-slate-700 bg-slate-800 block"
+            class="group relative aspect-square w-full max-w-[180px] overflow-hidden rounded-xl border border-slate-700 bg-slate-800 block sm:max-w-[200px]"
           >
             <img
               v-if="member.photo"
               :src="member.photo"
               :alt="member.name"
-              class="size-full object-cover transition group-hover:opacity-60"
+              class="size-full object-cover object-center transition group-hover:opacity-60"
             >
             <div
               v-else
@@ -55,8 +50,35 @@
               </svg>
             </div>
           </a>
+
+          <p class="mt-4 text-xl font-semibold text-white sm:text-2xl">
+            {{ member.name }}
+          </p>
+
+          <p class="mt-1 text-sm font-medium text-blue-400 sm:text-base">
+            {{ member.role }}
+          </p>
+
+          <p class="mt-2 max-w-xs text-sm leading-relaxed text-slate-400 sm:text-base">
+            {{ member.description }}
+          </p>
         </li>
       </ul>
+
+      <!-- Badge incubateur centré + cliquable -->
+      <div class="mt-12 text-center">
+        <a
+          href="https://www.bordeaux-inp.fr/fr/lincubateur-bordeaux-inpulse"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-800/50 px-4 py-1.5 text-xs font-medium text-slate-300 transition hover:border-blue-500/50 hover:bg-slate-800 hover:text-blue-300 sm:text-sm"
+        >
+          <svg class="size-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+          </svg>
+          Incubated at Bordeaux INPulse
+        </a>
+      </div>
     </div>
   </section>
 </template>
@@ -66,13 +88,19 @@ const config = useRuntimeConfig()
 const baseURL = config.app.baseURL
 
 const teamData = [
-  { name: 'Kichi-Tawa BOURGUINAT', role: 'Project Lead', photo: 'images/team/ktb_portrait.jpg', linkedin: 'https://www.linkedin.com/in/kitchi-tawa-bourguinat' },
+  {
+    name: 'Kichi-Tawa Bourguinat',
+    role: 'Project Lead',
+    description: 'Telecommunication Engineering Student at ENSEIRB-MATMECA, Bordeaux.',
+    photo: 'images/ktb_portrait.jpg',
+    linkedin: 'https://www.linkedin.com/in/kitchi-tawa-bourguinat',
+  },
 ]
 
 const team = computed(() =>
   teamData.map(m => ({
     ...m,
-    photo: m.photo ? (baseURL + m.photo) : ''
+    photo: m.photo ? (baseURL + m.photo) : '',
   }))
 )
 </script>

@@ -11,18 +11,16 @@
         Want to know more or work with us?
       </p>
 
-      <!-- Carte contact agrandie -->
       <div class="mt-12 rounded-2xl border border-slate-800/50 bg-slate-900/30 p-10 backdrop-blur-sm">
         <!-- Email avec icône (plus grand) -->
         <a
           href="mailto:bastion.space.solution@gmail.com"
-          class="group inline-flex items-center gap-3 rounded-lg bg-blue-600 px-8 py-4 text-lg font-medium text-white transition hover:bg-blue-500 hover:scale-105"
+          class="group inline-flex max-w-full items-center gap-2 rounded-lg bg-blue-600 px-4 py-3 text-sm font-medium text-white transition hover:scale-105 hover:bg-blue-500 sm:gap-3 sm:px-8 sm:py-4 sm:text-lg"
         >
-          <!-- Icône email agrandie -->
-          <svg class="size-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <svg class="size-5 shrink-0 sm:size-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
           </svg>
-          bastion.space.solution@gmail.com
+          <span class="min-w-0 break-all text-left">bastion.space.solution@gmail.com</span>
         </a>
 
         <!-- Informations complémentaires (agrandies) -->
